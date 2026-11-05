@@ -2,3 +2,8 @@
 
 @source '../../../../app/Filament/**/*';
 @source '../../../../resources/views/filament/**/*';
+
+/* TrioRCM design pass (Phase 1): rounded cards, consistent spacing. */
+.fi-section {
+    @apply rounded-2xl;
+}

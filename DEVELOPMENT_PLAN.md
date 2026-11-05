@@ -32,23 +32,25 @@
 
 ---
 
-## Phase 1 — Foundation & Shell
+## Phase 1 — Foundation & Shell ✅ Complete
 
 **Goal:** the app looks and feels like the target product; every sidebar item is clickable.
 
 Tasks:
-- [ ] Verify environment (`php -v`, `composer -V`), install Laravel Boost, read generated guidelines.
-- [ ] Confirm Filament 5 admin panel (`AdminPanelProvider`) boots; fix login page branding.
-- [ ] Custom Filament theme: brand color, logo in sidebar, rounded cards, consistent spacing, **dark mode enabled**.
-- [ ] Build the sidebar navigation exactly per `requirement.md` §1 (14 items, groups, heroicon names, order).
-- [ ] Add count-badge support on nav items (red overdue attestations, etc.) — wire in Phase 6, stub now.
-- [ ] Create placeholder "Coming soon" pages for: Enrollments, Attestations, Tasks, Payers, Reports, Notifications (card: *"This module is in the roadmap"* + sidebar badge).
-- [ ] Register nav icons and route names for all items.
+- [x] Verify environment (`php -v`, `composer -V`), install Laravel Boost, read generated guidelines.
+- [x] Confirm Filament 5 admin panel (`AdminPanelProvider`) boots; fix login page branding.
+- [x] Custom Filament theme: brand color, logo in sidebar, rounded cards, consistent spacing, **dark mode enabled**.
+- [x] Build the sidebar navigation exactly per `requirement.md` §1 (14 items, groups, heroicon names, order).
+- [x] Add count-badge support on nav items (red overdue attestations, etc.) — wire in Phase 6, stub now.
+- [x] Create placeholder "Coming soon" pages for: Enrollments, Attestations, Tasks, Payers, Reports, Notifications (card: *"This module is in the roadmap"* + sidebar badge).
+- [x] Register nav icons and route names for all items.
 
 **Acceptance:**
-- All 14 sidebar items render in order with correct groups/icons; 6 show "Coming soon" badge.
-- Dark mode toggles cleanly; brand theme applied.
-- `composer test` green.
+- [x] All 14 sidebar items render in order with correct groups/icons; 6 show "Coming soon" badge (`SidebarNavigationTest`, 10/10 green).
+- [x] Dark mode toggles cleanly; brand theme applied (Blue primary, logo, `rounded-2xl` sections).
+- [x] `composer test` green.
+
+**Notes:** `User` model now implements `FilamentUser::canAccessPanel()` (required by Filament 5 outside `local` env). MVP modules (Providers, Practices, Documents, Users & Roles, Audit Logs, Login Activity, Settings) show "under construction" placeholders until their phase; roadmap modules show the "Soon" badge.
 
 ---
 
