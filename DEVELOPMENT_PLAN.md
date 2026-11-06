@@ -54,26 +54,29 @@ Tasks:
 
 ---
 
-## Phase 2 — Data Layer
+## Phase 2 — Data Layer ✅ Complete
 
 **Goal:** the complete database schema with realistic demo data (per `requirement.md` §14, §15).
 
 Tasks:
-- [ ] Install `spatie/laravel-permission` and `spatie/laravel-activitylog`.
-- [ ] Migrations for: `practices`, `providers`, `provider_licenses`, `provider_locations`, `provider_work_history`, `documents`, `payers`, `enrollments`, `attestations`, `tasks`, `notes`, `login_events`, `settings` (+ permission tables, `activity_log`).
-- [ ] Eloquent models with relations:
+- [x] Install `spatie/laravel-permission` and `spatie/laravel-activitylog`.
+- [x] Migrations for: `practices`, `providers`, `provider_licenses`, `provider_locations`, `provider_work_history`, `documents`, `payers`, `enrollments`, `attestations`, `tasks`, `notes`, `login_events`, `settings` (+ permission tables, `activity_log`).
+- [x] Eloquent models with relations:
   - Practice hasMany Provider
   - Provider hasMany License, Location, WorkHistory, Document, Enrollment, Attestation, Note
   - Payer hasMany Enrollment
   - User (specialist) hasMany Provider (assigned)
-- [ ] Casts: `date_of_birth`, `ssn_last4`, DEA `number`, practice `tax_id` → **encrypted**; `attested_at`/`due_at` dates; soft deletes on providers.
-- [ ] Validation rules at model/rule level: NPI = 10 digits unique, dates, enums (status/stage/type).
-- [ ] Factories + seeders per §15: 5 practices, 35 providers, ~120 documents (valid/expiring/expired/missing mix), 10 payers, ~60 enrollments across stages, attestation dates spread green/amber/red, 5 users (one per role), 100+ audit entries.
+- [x] Casts: `date_of_birth`, `ssn_last4`, DEA `number`, practice `tax_id` → **encrypted**; `attested_at`/`due_at` dates; soft deletes on providers.
+- [x] Validation rules at model/rule level: NPI = 10 digits unique, dates, enums (status/stage/type).
+- [x] Factories + seeders per §15: 5 practices, 35 providers, ~120 documents (valid/expiring/expired/missing mix), 10 payers, ~60 enrollments across stages, attestation dates spread green/amber/red, 5 users (one per role), 100+ audit entries.
 
 **Acceptance:**
-- `php artisan migrate:fresh --seed` runs clean.
-- Seed produces dashboard-ready data (overdue, due-soon, and current items all present).
-- Encrypted attributes round-trip through casts.
+- [x] `php artisan migrate:fresh --seed` runs clean.
+- [x] Seed produces dashboard-ready data (overdue, due-soon, and current items all present).
+- [x] Encrypted attributes round-trip through casts.
+- [x] `DatabaseSeedTest` green — 7 tests, 108 assertions total suite green (`php artisan test --compact`, 17/17).
+
+**Notes:** 15 enums in `app/Enums/` (string-backed); 14 models, 13 factories, 13 seeders. NPI validation runs in `Provider::saving` via a reusable `rules()` set. `Document` status auto-computes on save (Expired past / Expiring ≤60d, preserving manual Missing/UnderReview); `Attestation` status auto-computes from `due_at`. LogsActivity (spatie) on User/Practice/Provider/Document/Payer/Enrollment/Attestation/Task with `getActivitylogOptions()`; encrypted fields excluded from audit attributes. `encrypted:datetime` isn't supported in this Laravel version — sensitive dates use the plain `encrypted` string cast. Demo logins: `admin@triorcm.test` / `password` (Super Admin), plus one user per role at `credentialing.admin@`, `credentialing.manager@`, `specialist@`, `viewer@` `triorcm.test`.
 
 ---
 
