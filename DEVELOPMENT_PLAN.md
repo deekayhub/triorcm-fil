@@ -107,11 +107,12 @@ Tasks:
 
 ---
 
-## Phase 4 — Documents
+## Phase 4 — Documents 🌟in progress🌟
 
 **Goal:** document management with security (`requirement.md` §5).
 
 Tasks:
+- [x] `Document` resource uses `ModulePlaceholder` showing "This module is under construction." and "Ships in Phase 4 of 9" (see `app/Filament/Pages/Documents.php`).
 - [ ] `DocumentResource` + relation manager on Provider: provider, type (8 types), file (private disk `FileUpload`), issued_at, expires_at, status, uploaded_by, notes.
 - [ ] Auto status: **Expired** if past, **Expiring** if within 60 days (window configurable later in Settings), else Valid; Missing/Under Review manual.
 - [ ] Per-provider **required documents checklist** — missing types shown as red rows.
@@ -124,7 +125,33 @@ Tasks:
 
 ---
 
-## Phase 5 — Security Group
+## Phase 5 — Security Group 🌟in progress🌟
+
+**Goal:** the Security section works (`requirement.md` §12).
+
+Tasks:
+- [x] `User` module uses `ModulePlaceholder` showing "This module is under construction." and "Ships in Phase 5 of 9" (see `app/Filament/Pages/Users.php`).
+- [ ] **Users & Roles**
+  - [ ] `UserResource`: name, email, password, role, is_active, last_login_at, 2FA flag.
+  - [ ] Roles: Super Admin, Admin, Credentialing Manager, Specialist, Read-only (spatie permissions).
+  - [ ] Policies on every resource: view/create/update/delete per role.
+  - [ ] 2FA enforcement for Admin roles (Filament built-in / Fortify TOTP).
+- [ ] **Audit Logs**
+  - [ ] ActivityResource: read-only table, filters (user, model, event, date range), **diff view** of changed fields.
+  - [ ] Log model events with old/new values, user, IP, timestamp + document view/download + login/logout.
+- [ ] **Login Activity**
+  - [ ] `login_events` table + listeners on Login/Logout/Failed events.
+  - [ ] Page with failed attempts in red + "last 7 days" summary card.
+  - [ ] **Security baseline:** rate-limited login, configurable session timeout, password rules, row-level scoping (team-assigned providers) where role requires it.
+
+**Acceptance:**
+- Each role sees exactly its permitted resources/actions.
+- Audit diff view shows old → new values; login events captured including failures.
+- 2FA enforced for Admin role.
+
+---
+
+## Phase 6 — Dashboard + Settings → **MVP demo complete**
 
 **Goal:** the Security section works (`requirement.md` §12).
 
