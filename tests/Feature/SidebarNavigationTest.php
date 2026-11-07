@@ -4,11 +4,23 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class SidebarNavigationTest extends TestCase
 {
     use RefreshDatabase;
+
+    /**
+     * Create a panel user that passes the role-based resource policies.
+     */
+    private function createUserWithRole(): User
+    {
+        $user = User::factory()->create();
+        $user->assignRole(Role::findOrCreate('Super Admin', 'web'));
+
+        return $user;
+    }
 
     /**
      * Sidebar structure from requirement.md §1: label => path.
@@ -62,7 +74,7 @@ class SidebarNavigationTest extends TestCase
 
     public function test_every_sidebar_item_is_reachable(): void
     {
-        $user = User::factory()->create();
+        $user = $this->createUserWithRole();
 
         foreach (self::SIDEBAR_ITEMS as $label => $path) {
             $response = $this->actingAs($user)->get($path);
@@ -73,7 +85,7 @@ class SidebarNavigationTest extends TestCase
 
     public function test_sidebar_renders_every_navigation_item_label(): void
     {
-        $user = User::factory()->create();
+        $user = $this->createUserWithRole();
 
         $response = $this->actingAs($user)->get('/admin');
 
@@ -86,7 +98,7 @@ class SidebarNavigationTest extends TestCase
 
     public function test_navigation_groups_appear_in_documented_order(): void
     {
-        $user = User::factory()->create();
+        $user = $this->createUserWithRole();
 
         $html = $this->actingAs($user)->get('/admin')->assertOk()->getContent();
 
@@ -109,7 +121,7 @@ class SidebarNavigationTest extends TestCase
 
     public function test_roadmap_modules_show_coming_soon_badge(): void
     {
-        $user = User::factory()->create();
+        $user = $this->createUserWithRole();
 
         $html = $this->actingAs($user)->get('/admin')->assertOk()->getContent();
 
@@ -122,7 +134,7 @@ class SidebarNavigationTest extends TestCase
 
     public function test_roadmap_module_page_shows_roadmap_message(): void
     {
-        $user = User::factory()->create();
+        $user = $this->createUserWithRole();
 
         $this->actingAs($user)
             ->get('/admin/enrollments')
@@ -133,13 +145,13 @@ class SidebarNavigationTest extends TestCase
 
     public function test_mvp_module_page_shows_under_construction_message(): void
     {
-        $user = User::factory()->create();
+        $user = $this->createUserWithRole();
 
         $this->actingAs($user)
-            ->get('/admin/providers')
+            ->get('/admin/documents')
             ->assertOk()
             ->assertSee('This module is under construction.')
-            ->assertSee('Ships in Phase 3 of 9');
+            ->assertSee('Ships in Phase 4 of 9');
     }
 
     public function test_login_page_is_available_for_guests(): void

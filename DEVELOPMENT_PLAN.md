@@ -80,15 +80,15 @@ Tasks:
 
 ---
 
-## Phase 3 — Providers + Practices
+## Phase 3 — Providers + Practices ✅
 
 **Goal:** full provider management (the core module, `requirement.md` §3, §4).
 
 Tasks:
-- [ ] `PracticeResource`: form/table (name, encrypted tax_id, type, address, contact, status), provider count column, hasMany relation.
-- [ ] `ProviderResource` list table: full name, NPI, specialty, practice, status badge, attestation due date (green >30d / amber ≤30d / red overdue), documents-complete progress bar, assigned specialist.
-- [ ] Filters: status, specialty, practice, attestation state, assigned specialist, state of license.
-- [ ] Detail page — 8 tabs per §3.2:
+- [x] `PracticeResource`: form/table (name, encrypted tax_id, type, address, contact, status), provider count column, hasMany relation.
+- [x] `ProviderResource` list table: full name, NPI, specialty, practice, status badge, attestation due date (green >30d / amber ≤30d / red overdue), documents-complete progress bar, assigned specialist.
+- [x] Filters: status, specialty, practice, attestation state, assigned specialist, state of license.
+- [x] Detail page — 8 tabs per §3.2:
   1. Basic Info (incl. encrypted DOB, ssn_last4)
   2. Specialties (taxonomy, board certification)
   3. Licenses & IDs (repeater/related `provider_licenses`, encrypted DEA number)
@@ -97,8 +97,8 @@ Tasks:
   6. Documents → relation manager (full UI lands Phase 4, stub list now)
   7. Enrollments → relation manager (placeholder until Phase 7)
   8. Notes & Activity (rich notes + provider-scoped audit log)
-- [ ] Actions: create, edit, soft delete, restore, bulk assign specialist, bulk change status, **Mark attested** (sets `attested_at`, `due_at = +120 days`), export CSV, import CSV.
-- [ ] Policies: view/create/update/delete per role (wired to permissions created Phase 5).
+- [x] Actions: create, edit, soft delete, restore, bulk assign specialist, bulk change status, **Mark attested** (sets `attested_at`, `due_at = +120 days`), export CSV, import CSV.
+- [x] Policies: view/create/update/delete per role (wired to permissions created Phase 5).
 
 **Acceptance:**
 - CRUD works for both resources; all 8 tabs render with correct data.

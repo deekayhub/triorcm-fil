@@ -173,4 +173,17 @@ class Provider extends Model
             ['npi.regex' => 'The NPI must be exactly 10 digits.'],
         )->validate();
     }
+
+    /**
+     * Provider's full name, including middle name and suffix when present.
+     */
+    public function getFullNameAttribute(): string
+    {
+        return trim(implode(' ', array_filter([
+            $this->first_name,
+            $this->middle_name,
+            $this->last_name,
+            $this->suffix,
+        ])));
+    }
 }
