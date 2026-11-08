@@ -17,6 +17,7 @@ use Filament\Tables\Table;
 class PayerResource extends Resource
 {
     protected static string|\UnitEnum|null $navigationGroup = 'Network';
+
     protected static ?string $model = Payer::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;

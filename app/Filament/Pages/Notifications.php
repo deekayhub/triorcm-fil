@@ -3,9 +3,10 @@
 namespace App\Filament\Pages;
 
 use BackedEnum;
+use Filament\Pages\Page;
 use UnitEnum;
 
-class Notifications extends \Filament\Pages\Page
+class Notifications extends Page
 {
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-bell';
 
