@@ -1,7 +1,18 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/clear-cache', function () {
+    Artisan::call('filament:optimize-clear');
+    Artisan::call('optimize:clear');
+
+    return response()->json([
+        'message' => 'Cache cleared successfully.',
+        'output' => Artisan::output(),
+    ]);
 });
