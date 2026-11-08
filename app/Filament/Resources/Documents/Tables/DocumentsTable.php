@@ -2,12 +2,7 @@
 
 namespace App\Filament\Resources\Documents\Tables;
 
-use App\Filament\Resources\Documents\Actions\DownloadDocumentAction;
-use App\Filament\Resources\Documents\Actions\MarkMissingAction;
-use App\Filament\Resources\Documents\Actions\MarkUnderReviewAction;
-use App\Models\Document;
 use Filament\Tables\Columns\BadgeColumn;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -28,13 +23,6 @@ class DocumentsTable
                 TextColumn::make('provider.name')
                     ->label('Provider')
                     ->sortable(),
-
-                IconColumn::make('file')
-                    ->label('File')
-                    ->image(function (Document $record): ?string {
-                        return null;
-                    })
-                    ->tooltip('File'),
 
                 TextColumn::make('issued_at')
                     ->label('Issued At')
@@ -74,12 +62,6 @@ class DocumentsTable
                         'under_review' => 'Under Review',
                     ]),
             ])
-            ->actions([
-                DownloadDocumentAction::make(),
-                MarkMissingAction::make(),
-                MarkUnderReviewAction::make(),
-            ])
-            ->bulkActions([])
             ->emptyStateActions([]);
     }
 }

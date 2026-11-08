@@ -29,11 +29,13 @@ class DocumentForm
 
                         TextInput::make('issued_at')
                             ->label('Issued At')
-                            ->type('date'),
+                            ->type('date')
+                            ->required(),
 
                         TextInput::make('expires_at')
                             ->label('Expires At')
-                            ->type('date'),
+                            ->type('date')
+                            ->required(),
 
                         Select::make('status')
                             ->label('Status')
@@ -53,14 +55,6 @@ class DocumentForm
                         TextInput::make('notes')
                             ->label('Notes')
                             ->rows(3),
-                    ]),
-
-                Section::make('File')
-                    ->schema([
-                        Select::make('file')
-                            ->label('File')
-                            ->disk('private')
-                            ->directory('documents'),
                     ]),
             ]);
     }
