@@ -75,11 +75,11 @@ Route::get('/publish-filament-assets', function () {
 
 Route::get('/optimize-filament', function () {
     try {
-        Artisan::call('filament:optimize');
+        Artisan::call('filament:cache-components');
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Filament optimized successfully.',
+            'message' => 'Filament components cached successfully.',
             'output' => Artisan::output(),
         ]);
     } catch (\Exception $e) {
