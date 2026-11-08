@@ -64,12 +64,9 @@ class SidebarNavigationTest extends TestCase
      * @var list<string>
      */
     private const array ROADMAP_MODULES = [
-        'Enrollments',
         'Attestations',
         'Tasks',
-        'Payers',
         'Reports',
-        'Notifications',
     ];
 
     public function test_every_sidebar_item_is_reachable(): void
@@ -160,7 +157,7 @@ class SidebarNavigationTest extends TestCase
         $user = $this->createUserWithRole();
 
         $this->actingAs($user)
-            ->get('/admin/enrollments')
+            ->get('/admin/tasks')
             ->assertOk()
             ->assertSee('This module is in the roadmap.')
             ->assertSee('Planned for Phase 7 of 9');

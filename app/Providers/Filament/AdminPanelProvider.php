@@ -28,6 +28,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->login()
+            ->databaseNotifications()
             ->profile()
             ->brandName('TrioRCM')
             ->brandLogo(fn () => view('filament.admin.logo'))
@@ -35,6 +36,7 @@ class AdminPanelProvider extends PanelProvider
                 'primary' => Color::Blue,
             ])
             ->sidebarCollapsibleOnDesktop()
+            ->maxContentWidth('full')
             ->navigationGroups([
                 'Provider Management',
                 'Credentialing',

@@ -5,7 +5,7 @@ namespace App\Filament\Pages;
 use BackedEnum;
 use UnitEnum;
 
-class Notifications extends ModulePlaceholder
+class Notifications extends \Filament\Pages\Page
 {
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-bell';
 
@@ -13,11 +13,14 @@ class Notifications extends ModulePlaceholder
 
     protected static ?string $navigationLabel = 'Notifications';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 10;
 
     protected static ?string $title = 'Notifications';
 
-    protected static ?string $badge = 'Soon';
+    protected string $view = 'filament.pages.notifications';
 
-    protected static string $phaseLabel = 'Planned for Phase 8 of 9';
+    public function getNotifications()
+    {
+        return auth()->user()?->notifications()->latest()->limit(50)->get() ?? collect();
+    }
 }

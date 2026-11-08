@@ -125,189 +125,46 @@ Tasks:
 - Test expectations updated to match full module content (SidebarNavigationTest)
 - Module fully operational with all CRUD functionality
 
----
+## Phase 5 — Security Group 🟡 Partial (finish in Phase 7B)
+- [ ] Users & Roles: full UserResource (role, is_active, 2FA status, last_login_at)
+- [ ] 2FA enforced for Admin roles
+- [ ] Row-level scoping for Specialists
+- [x] Audit Logs, Login Activity (verify in audit)
 
-## Phase 5 — Security Group ✅ Complete
+## Phase 6 — Dashboard + Settings 🟡 Partial (finish in Phase 7B)
+- [ ] Settings page: tabs General, Attestation, Documents, Notifications, Security (persisted in `settings`)
+- [ ] Dashboard: clickable cards with filtered links, both charts, 3 tables, global search
+- [ ] Sidebar count badges wired
 
-**Goal:** the Security section works (`requirement.md` §12).
+## Phase 7A — Payers (basic) + Enrollments, Attestations, Tasks ⬜ Pending
+- [ ] PayerResource basics (needed as FK)
+- [ ] EnrollmentResource + Kanban board; stage change creates Task + audit entry
+- [ ] AttestationResource; daily `attestations:refresh` command; reminders at 30/14/7 + overdue
+- [ ] TaskResource (polymorphic related, priority, status, My tasks, auto-created tasks)
+- [ ] Remove placeholders and "Soon" badges for these modules
 
-Tasks:
-- [x] `User` module uses `ModulePlaceholder` showing "This module is under construction." and "Ships in Phase 5 of 9" (see `app/Filament/Pages/Users.php`).
-- [x] Full UserResource infrastructure built: form with name, email, password, role, is_active, 2FA flag; role policies wired to spatie permissions (Super Admin, Admin, Credentialing Manager, Specialist, Read-only).
-- [x] Audit Logs: ActivityResource read-only table with filters, diff view of changed fields; log model events with old/new values, user, IP, timestamp.
-- [x] Login Activity: login_events table + listeners on Login/Logout/Failed events; page with failed attempts in red + "last 7 days" summary card.
-- [x] Security baseline: rate-limited login, configurable session timeout, password rules, row-level scoping.
+**Acceptance:** stage change generates task + audit entry; `schedule:test` flips statuses and sends reminders; dashboard shows real enrollment/attestation data.
 
-**Acceptance:**
-- Each role sees exactly its permitted resources/actions.
-- Audit diff view shows old → new values; login events captured including failures.
-- Test suite remains 38/38 green.
+## Phase 7B — Finish incomplete MVP modules ⬜ Pending
+- [ ] Users & Roles, Settings, Dashboard wiring, 2FA, row-level scoping, sidebar badges (see Phase 5/6 above)
 
----
+**Acceptance:** Settings values are read by modules; each role sees only its permitted resources.
 
-## Phase 6 — Dashboard + Settings ✅ Complete
+## Phase 8 — Payers (full), Reports, Notifications ⬜ Pending
+- [ ] Payer requirements checklist + enrollment warning; relation managers
+- [ ] Reports page (7 reports, filters, CSV/XLSX export, per-role access)
+- [ ] Notification center, bell + unread count, 6 notification types, per-user preferences, daily digest
+- [ ] Remove remaining placeholders
 
-**Goal:** MVP demo complete (`requirement.md` §6, §7).
+**Acceptance:** no placeholders left; export numbers match seed data; preferences gate outbound email.
 
-Tasks:
-- [x] Dashboard page extended with widget-style summary cards (overdue attestations, expiring documents, active enrollments).
-- [x] Settings page uses `ModulePlaceholder` showing "This module is under construction. Ships in Phase 6 of 9" (see `app/Filament/Pages/Settings.php`).
-- [x] Dashboard data pulls from all previous phases: provider counts, document expiry status, enrollment stages.
-- [x] Quick-action buttons for: Create Provider, Create Practice, Upload Document, Assign Specialist.
-- [x] Recent activity card with audit log highlights.
-- [x] Dark mode persistence and theme preferences.
+## Phase 8B — Profile ⬜ Pending
+- [ ] My Profile page (password, avatar, timezone, 2FA QR + recovery codes, sessions)
+- [ ] Provider profile header card, completeness score, PDF summary
 
-**Acceptance:**
-- Dashboard displays summary statistics from Phases 3-5.
-- Settings placeholder displays correct phase label and status message.
-- Dashboard is operational and demoable with sample data.
-- Test suite remains 38/38 green.
+## Phase 9 — Polish & Demo ⬜ Pending
+- [ ] Empty states, dark-mode audit, eager loading + indexes
+- [ ] Tests: resource, policy per role, scheduler, notifications, exports
+- [ ] README + demo walkthrough; `composer setup` from scratch
 
----.
-
-
-## Phase 8 — Payers, Reports, Notifications 🌟 completed🌟
-
-**Goal:** full sidebar complete (`requirement.md` §8, §8).
-
-Tasks:
-- [x] `Payers` module uses `ModulePlaceholder` showing "Soon" badge and "Planned for Phase 8 of 9" (see `app/Filament/Pages/Payers.php`).
-- [x] `Notifications` module uses `ModulePlaceholder` showing "Soon" badge and "Planned for Phase 8 of 9" (see `app/Filament/Pages/Notifications.php`).
-- [x] `Reports` module uses `ModulePlaceholder` showing "Soon" badge and "Planned for Phase 8 of 9" (see `app/Filament/Pages/Reports.php`).
-- [ ] PayerResource: full CRUD, relation to enrollments, status tracking.
-- [ ] ReportResource/Page: summary reports pulled from Phases 3-7 (enrollment stages, attestation status, task completion).
-- [ ] NotificationSystem: event listeners, user preference settings, digest emails.
-- [ ] Per-role report access (Super Admin/Admin all; Credentialing Manager limited; Specialist/viewer restricted).
-
-**Acceptance:**
-- Each roadmap module ("Payers", "Notifications", "Reports") displays "Soon" badge in sidebar.
-- ModulePlaceholders show correct phase labels ("Planned for Phase 8 of 9").
-- Test suite remains 38/38 green.
-
----
-## Phase 9 — Polish & Demo → **Complete**🌟 final🌟
-
-**Goal:** shippable demo (`requirement.md` §9, all phases).
-
-Tasks:
-- [x] Final review of all 9 phases against `requirement.md` compliance.
-- [x] Demo data validation: 5 practices, 35 providers, 120 docs, 10 payers, 60 enrollments, 35 attestations, 5 role users, 360 activities, 30 login events, 14 settings.
-- [x] All encrypted fields round-trip verified (DOB, ssn_last4, DEA/license, practice tax_id).
-- [x] All role policies enforced (Super Admin/Admin all; Credentialing Manager all; Specialist view/create/update no delete; Read-only view only; no-role → 403).
-- [x] Sidebar: 14 items with 6 "Soon" badges verified across all phases.
-- [x] `composer test` green: 38/38, 219 assertions.
-- [x] `vendor/bin/pint --dirty --format agent` passed.
-- [x] Browser demo ready for stakeholder review.
-
-**Acceptance:**
-- Full 9-phase plan 1→2→3→4→5→6→7→8→9 complete.
-- Shipper demo with all modules (complete + "Soon" roadmap modules).
-- All acceptance criteria from `requirement.md` and `DEVELOPMENT_PLAN.md` met.
-
---
-
-**Development Plan — Provider Credentialing & Enrollment CRM**
-  - [ ] Policies on every resource: view/create/update/delete per role.
-  - [ ] 2FA enforcement for Admin roles (Filament built-in / Fortify TOTP).
-- [ ] **Audit Logs**
-  - [ ] ActivityResource: read-only table, filters (user, model, event, date range), **diff view** of changed fields.
-  - [ ] Log model events with old/new values, user, IP, timestamp + document view/download + login/logout.
-- [ ] **Login Activity**
-  - [ ] `login_events` table + listeners on Login/Logout/Failed events.
-  - [ ] Page with failed attempts in red + "last 7 days" summary card.
-- [ ] **Security baseline:** rate-limited login, configurable session timeout, password rules, row-level scoping (team-assigned providers) where role requires it.
-
-**Acceptance:**
-- Each role sees exactly its permitted resources/actions.
-- Audit diff view shows old → new values; login events captured including failures.
-- 2FA enforced for Admin role.
-
----
-
-## Phase 6 — Dashboard + Settings → **MVP demo complete**
-
-**Goal:** the §2 dashboard and §13 settings; demo-ready MVP (5 working modules).
-
-Dashboard tasks:
-- [ ] Stats widgets: Total Providers (± vs last month), Attestations Due 30d, Overdue (red), Documents Expiring 60d, Open Enrollments — **each card clickable** with pre-applied query-string filters.
-- [ ] Charts: Providers by Status (doughnut), Enrollments by Stage (bar).
-- [ ] Tables: Expiring Documents (next 10), My Open Tasks, Recent Activity feed (latest 10 audit entries).
-- [ ] Quick actions: Add Provider, Upload Document, Import Providers (CSV).
-- [ ] Global search: providers by name, NPI, email.
-- [ ] Sidebar count badges wired (overdue attestations red, etc.).
-
-Settings tasks:
-- [ ] `settings` table (key, value JSON) or spatie/laravel-settings.
-- [ ] Settings page tabs: General, Attestation (cycle 120d, reminders 30/14/7), Documents (required types per provider type, 60d window), Notifications, Security (session timeout, enforce 2FA, password policy).
-
-**Acceptance:**
-- Every dashboard widget links to the filtered module it advertises.
-- Settings persist and are read by the modules that use them (attestation cycle, expiry window).
-- **MVP walkthrough possible end-to-end: login → dashboard → provider → document → audit trail.**
-
----
-
-## Phase 7 — Enrollments, Attestations, Tasks
-
-**Goal:** credentialing roadmap modules (`requirement.md` §6–§8).
-
-Tasks:
-- [ ] `PayerResource` basics first (name, type, portal_url, contact, requirements checklist) — needed as FK for enrollments. *(Full Payer module is Phase 8.)*
-- [ ] `EnrollmentResource`: provider, payer, stage (Intake → Verification → Submitted → Approved → Denied), submitted/approved dates, effective_date, reference_no, assigned user, notes. Table + optional Kanban-by-stage. Stage change creates a task + audit entry.
-- [ ] `AttestationResource`: provider, attested_at, due_at (+120d from settings), status (Current/Due Soon/Overdue), attested_by.
-  - [ ] **Daily scheduler job**: recompute statuses; send reminders at 30, 14, 7 days before due and when overdue.
-- [ ] `TaskResource`: title, related provider/enrollment, assigned user, due_at, priority, status.
-- [ ] Replace their "Coming soon" placeholders; remove sidebar badges.
-
-**Acceptance:**
-- Stage change on enrollment generates task + audit entry.
-- Scheduler command runs via `php artisan schedule:test` and flips attestation statuses/sends reminders.
-- Dashboard "Open Enrollments" and attestation stats now show real data.
-
----
-
-## Phase 8 — Payers, Reports, Notifications
-
-**Goal:** complete the full §1 sidebar.
-
-Tasks:
-- [ ] **Payers:** finish `PayerResource` (full fields + requirements checklist), remove placeholder.
-- [ ] **Reports** (custom page): turnaround time per payer, approval rate, expiring items, workload per specialist; CSV/XLSX export.
-- [ ] **Notifications:** in-app list + preferences (email, in-app) for attestation, expiry, and task events; email sender settings from Phase 6.
-- [ ] Replace remaining placeholders; remove their badges.
-
-**Acceptance:**
-- All 14 sidebar items are real modules — no placeholders remain.
-- Reports export downloads a file with correct numbers (spot-check against seed data).
-- Notification preferences save and gate outbound email.
-
----
-
-## Phase 9 — Polish & Demo
-
-**Goal:** the "looks advanced" bar (`requirement.md` §16).
-
-Tasks:
-- [ ] Visual pass: badges, progress bars, rounded cards, spacing consistency, dark-mode audit of every page.
-- [ ] Empty states with icon + call-to-action on every list page.
-- [ ] Sidebar count badges verified against live data.
-- [ ] Performance pass: eager-load relations, index filters/sort columns.
-- [ ] Full test suite: feature tests per resource, policy tests per role, signed-URL and audit tests.
-- [ ] Demo walkthrough script + README (setup, roles, seed data overview).
-- [ ] Final `composer setup` from-scratch verification.
-
-**Acceptance:**
-- Fresh clone → `composer setup` → login as each seeded role → full walkthrough with zero errors.
-- `composer test` green; no placeholder pages left; dark mode clean everywhere.
-
----
-
-## Out of scope (MVP)
-
-OCR, exclusion screening (OIG/SAM), primary source verification automation, client/provider self-service portal, directory accuracy outreach, e-signature, live CAQH or payer integrations.
-
----
-
-## Suggested cadence
-
-If working ~1 day per checkpoint: **Phases 1–2 = Day 1 setup**, **3–4 = Day 2 core**, **5–6 = Day 3 MVP demo**, **7–8 = Day 4 roadmap modules**, **9 = Day 5 polish**. Phases can be resequenced (e.g. 5 before 4) but never skipped — each builds on the prior phase's schema and policies.
+**Acceptance:** fresh clone → `composer setup` → walkthrough as every role with zero errors; `composer test` green; zero `ModulePlaceholder` usages.
