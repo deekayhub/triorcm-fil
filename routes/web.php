@@ -8,11 +8,16 @@ Route::get('/', function () {
 });
 
 Route::get('/clear-cache', function () {
-    Artisan::call('filament:optimize-clear');
-    Artisan::call('optimize:clear');
+    try {
+        Artisan::call('optimize:clear');
+    } catch (\Throwable $e) {
+        return response()->json([
+            'message' => 'Cache clear failed.',
+            'error' => $e->getMessage(),
+        ], 500);
+    }
 
     return response()->json([
         'message' => 'Cache cleared successfully.',
-        'output' => Artisan::output(),
     ]);
 });
