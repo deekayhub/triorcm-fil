@@ -25,8 +25,8 @@ class ProviderLocationFactory extends Factory
             'city' => fake()->city(),
             'state' => fake()->stateAbbr(),
             'zip' => fake()->postcode(),
-            'phone' => fake()->phoneNumber(),
-            'fax' => fake()->optional(0.6)->phoneNumber(),
+            'phone' => fake()->numerify('(###) ###-####'),
+            'fax' => fake()->optional(0.6)->numerify('(###) ###-####'),
             'is_primary' => false,
             'accepting_new_patients' => fake()->boolean(75),
         ];

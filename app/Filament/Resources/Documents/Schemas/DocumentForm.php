@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Documents\Schemas;
 
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
@@ -52,7 +53,7 @@ class DocumentForm
                             ->label('Uploaded By')
                             ->maxLength(255),
 
-                        TextInput::make('notes')
+                        Textarea::make('notes')
                             ->label('Notes')
                             ->rows(3),
                     ]),

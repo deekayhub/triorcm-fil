@@ -39,11 +39,12 @@ class User extends Authenticatable implements FilamentUser
     /**
      * Determine whether the user can access the admin panel.
      *
-     * Role-based access control is enforced from Phase 5 (Users & Roles).
+     * Inactive accounts are locked out, and every panel user must hold at
+     * least one role (requirement.md §12.1).
      */
     public function canAccessPanel(Panel $panel): bool
     {
-        return true;
+        return $this->is_active && $this->roles()->exists();
     }
 
     /**

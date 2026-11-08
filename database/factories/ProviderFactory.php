@@ -34,7 +34,7 @@ class ProviderFactory extends Factory
             'npi' => fake()->unique()->numerify('##########'),
             'caqh_id' => fake()->optional(0.6)->numerify('##########'),
             'primary_email' => fake()->unique()->safeEmail(),
-            'phone' => fake()->phoneNumber(),
+            'phone' => fake()->numerify('(###) ###-####'),
             'status' => fake()->randomElement([
                 ProviderStatus::Active,
                 ProviderStatus::Active,

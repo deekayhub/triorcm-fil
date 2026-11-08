@@ -40,7 +40,7 @@ class PayerFactory extends Factory
             'type' => fake()->randomElement(PayerType::cases()),
             'portal_url' => 'https://portal.'.fake()->domainName(),
             'contact_email' => fake()->companyEmail(),
-            'contact_phone' => fake()->phoneNumber(),
+            'contact_phone' => fake()->numerify('(###) ###-####'),
             'notes' => fake()->optional(0.5)->sentence(),
             'requirements' => [
                 ['label' => 'W-9', 'required' => true],

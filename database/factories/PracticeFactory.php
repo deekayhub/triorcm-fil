@@ -33,7 +33,7 @@ class PracticeFactory extends Factory
             'city' => fake()->city(),
             'state' => fake()->stateAbbr(),
             'zip' => fake()->postcode(),
-            'phone' => fake()->phoneNumber(),
+            'phone' => fake()->numerify('(###) ###-####'),
             'email' => fake()->unique()->companyEmail(),
             'contact_person' => fake()->name(),
             'status' => fake()->randomElement([

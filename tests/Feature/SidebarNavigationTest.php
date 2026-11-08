@@ -171,10 +171,10 @@ class SidebarNavigationTest extends TestCase
         $user = $this->createUserWithRole();
 
         $this->actingAs($user)
-            ->get('/admin/users')
+            ->get('/admin/settings')
             ->assertOk()
             ->assertSee('This module is under construction.')
-            ->assertSee('Ships in Phase 5 of 9');
+            ->assertSee('Ships in Phase 6 of 9');
     }
 
     public function test_login_page_is_available_for_guests(): void
